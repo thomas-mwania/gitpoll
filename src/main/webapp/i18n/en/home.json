@@ -1,0 +1,21 @@
+{
+  "home": {
+    "title": "Welcome, Git poll!",
+    "pollTittle": "Poll info",
+    "subtitle": "This is your landing page",
+    "pollsubtitle": "Try polling below",
+    "logged": {
+      "message": "You are logged in as user \"{{username}}\"."
+    },
+    "question": "Just so you know this project was initiated from JHipster:",
+    "link": {
+      "homepage": "JHipster homepage",
+      "stackoverflow": "JHipster on Stack Overflow",
+      "bugtracker": "JHipster bug tracker",
+      "chat": "JHipster public chat room",
+      "follow": "follow @jhipster on Twitter"
+    },
+    "like": "If you like JHipster, don't forget to give us a star on",
+    "github": "GitHub"
+  }
+}
