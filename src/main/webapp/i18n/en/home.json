@@ -9,6 +9,7 @@
     "id": "ID",
     "description": "Description",
     "bookmark": "Bookmark",
+    "removeBookmark": "Un-Bookmark",
     "bookmarked": "Bookmarked",
     "unbookmark": "Un-bookmark",
     "cloneUrl": "Clone Url",

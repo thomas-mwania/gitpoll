@@ -14,10 +14,9 @@
                 <p class="lead" jhiTranslate="home.pollsubtitle"></p>
                 <div class="card">
                     <h2>
-                        <span id="user-management-page-heading" jhiTranslate="userManagement.home.title">Users</span>
+                        <span id="user-management-page-heading" jhiTranslate="home.repositories"></span>
 
-                        <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./new']">
-                            <fa-icon icon="refresh"></fa-icon>
+                        <button class="btn btn-primary float-right" (click)="refresh()">
                             <span jhiTranslate="home.refresh"></span>
                         </button>
                     </h2>
@@ -27,10 +26,9 @@
                     <jhi-alert></jhi-alert>
 
                     <div class="table-responsive" *ngIf="bookmarks">
-                        <table class="table table-striped" aria-describedby="user-management-page-heading">
+                        <table class="table table-striped" aria-describedby="home.repositories">
                             <thead>
-                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending"
-                                [callback]="transition.bind(this)">
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
                                 <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
                                     <fa-icon icon="sort"></fa-icon>
                                 </th>
@@ -38,7 +36,7 @@
                                     <fa-icon icon="sort"></fa-icon>
                                 </th>
                                 <th scope="col"><span jhiTranslate="home.description">Description</span>
-<!--                                    <fa-icon icon="sort"></fa-icon>-->
+                                    <!--                                    <fa-icon icon="sort"></fa-icon>-->
                                 </th>
                                 <th scope="col"></th>
                                 <th scope="col" jhiSortBy="isBookmarked"><span
@@ -47,9 +45,9 @@
                                 </th>
                                 <th scope="col"><span jhiTranslate="home.cloneUrl"></span></th>
                                 <th scope="col"><span jhiTranslate="home.htmlUrl"></span>
-<!--                                    <fa-icon icon="sort"></fa-icon>-->
+                                    <!--                                    <fa-icon icon="sort"></fa-icon>-->
                                 </th>
-                                <th scope="col" jhiSortBy="startGazersCount"><span
+                                <th scope="col" jhiSortBy="stargazersCount"><span
                                     jhiTranslate="home.stars"></span>
                                     <fa-icon icon="sort"></fa-icon>
                                 </th>
@@ -70,52 +68,20 @@
                                 <td>{{ repo.fullName}}</td>
                                 <td>{{ repo.description }}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm" (click)="setActive(repo, true)"
-                                            *ngIf="!repo.isBookmarked"
-                                            jhiTranslate="userManagement.deactivated">Deactivated
+                                    <button class="btn btn-danger btn-sm" (click)="bookMark(repo, true)"
+                                            *ngIf="!repo.bookmarked"
+                                            jhiTranslate="home.bookmark">
                                     </button>
-                                    <button class="btn btn-success btn-sm" (click)="setActive(repo, false)"
-                                            *ngIf="repo.isBookmarked"
-                                            [disabled]="!currentAccount || currentAccount.login === user.login"
-                                            jhiTranslate="userManagement.activated">Activated
+                                    <button class="btn btn-success btn-sm" (click)="bookMark(repo, false)"
+                                            *ngIf="repo.bookmarked" jhiTranslate="home.removeBookmark">Activated
                                     </button>
                                 </td>
                                 <td>{{ repo.cloneUrl }}</td>
                                 <td>{{ repo.htmlUrl }}</td>
-                                <td>{{ repo.startGazersCount }}</td>
+                                <td>{{ repo.stargazersCount }}</td>
                                 <td>{{ repo.watchersCount }}</td>
                                 <td>{{ repo.openIssues }}</td>
-<!--                                <td>{{ user.createdDate | date:'dd/MM/yy HH:mm' }}</td>-->
-<!--                                <td>{{ user.lastModifiedBy }}</td>-->
-<!--                                <td>{{ user.lastModifiedDate | date:'dd/MM/yy HH:mm' }}</td>-->
-<!--                                <td class="text-right">-->
-<!--                                    <div class="btn-group">-->
-<!--                                        <button type="submit"-->
-<!--                                                [routerLink]="['./', user.login, 'view']"-->
-<!--                                                class="btn btn-info btn-sm">-->
-<!--                                            <fa-icon icon="eye"></fa-icon>-->
-<!--                                            <span class="d-none d-md-inline"-->
-<!--                                                  jhiTranslate="entity.action.view">View</span>-->
-<!--                                        </button>-->
 
-<!--                                        <button type="submit"-->
-<!--                                                [routerLink]="['./', user.login, 'edit']"-->
-<!--                                                queryParamsHandling="merge"-->
-<!--                                                class="btn btn-primary btn-sm">-->
-<!--                                            <fa-icon icon="pencil-alt"></fa-icon>-->
-<!--                                            <span class="d-none d-md-inline"-->
-<!--                                                  jhiTranslate="entity.action.edit">Edit</span>-->
-<!--                                        </button>-->
-
-<!--                                        <button type="button" (click)="deleteUser(user)"-->
-<!--                                                class="btn btn-danger btn-sm"-->
-<!--                                                [disabled]="!currentAccount || currentAccount.login === user.login">-->
-<!--                                            <fa-icon icon="times"></fa-icon>-->
-<!--                                            <span class="d-none d-md-inline"-->
-<!--                                                  jhiTranslate="entity.action.delete">Delete</span>-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                </td>-->
                             </tr>
                             </tbody>
                         </table>

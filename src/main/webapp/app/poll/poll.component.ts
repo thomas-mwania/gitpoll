@@ -34,40 +34,40 @@ export class PollComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getStored(): void {
-    this.pollService.findAll().subscribe(bookmarks => {
-      this.bookmarks = bookmarks
-    });
-  }
-
-  getUpstreamRepos(): void {
-    this.pollService.refresh().subscribe(upstremRepos => (this.upstreamRepos = upstremRepos))
-  }
-
-  addBookmark(id: number): void {
-    this.error = false;
-    this.success = false;
-
-    this.pollService.bookmark(Number(encodeURIComponent(id))).subscribe(
-      () => {
-        this.success = true;
-        this.pollService.findAll().subscribe(bookmarks => (this.bookmarks = bookmarks));
-      },
-      () => (this.error = true)
-    );
-  }
-
-  deleteBookmark(series: number): void {
-    this.error = false;
-    this.success = false;
-
-    this.pollService.delete(Number(encodeURIComponent(series))).subscribe(
-      () => {
-        this.success = true;
-        this.pollService.findAll().subscribe(bookmarks => (this.bookmarks = bookmarks));
-      },
-      () => (this.error = true)
-    );
-  }
+  // getStored(): void {
+  //   this.pollService.findAll().subscribe(bookmarks => {
+  //     this.bookmarks = bookmarks
+  //   });
+  // }
+  //
+  // getUpstreamRepos(): void {
+  //   this.pollService.refresh().subscribe(upstremRepos => (this.upstreamRepos = upstremRepos))
+  // }
+  //
+  // addBookmark(id: number): void {
+  //   this.error = false;
+  //   this.success = false;
+  //
+  //   // this.pollService.bookmark(encodeURIComponent(id)).subscribe(
+  //   //   () => {
+  //   //     this.success = true;
+  //   //     this.pollService.findAll().subscribe(bookmarks => (this.bookmarks = bookmarks));
+  //   //   },
+  //   //   () => (this.error = true)
+  //   // );
+  // }
+  //
+  // deleteBookmark(series: number): void {
+  //   this.error = false;
+  //   this.success = false;
+  //
+  //   this.pollService.delete(Number(encodeURIComponent(series))).subscribe(
+  //     () => {
+  //       this.success = true;
+  //       this.pollService.findAll().subscribe(bookmarks => (this.bookmarks = bookmarks));
+  //     },
+  //     () => (this.error = true)
+  //   );
+  // }
 
 }
