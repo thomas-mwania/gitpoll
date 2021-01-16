@@ -217,6 +217,8 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
+To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
 [jhipster 6.10.5 archive]: https://www.jhipster.tech/documentation-archive/v6.10.5
 [using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.10.5/development/
@@ -235,3 +237,31 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [protractor]: https://angular.github.io/protractor/
 [leaflet]: https://leafletjs.com/
 [definitelytyped]: https://definitelytyped.org/
+
+## Running for the Interview    
+If you are reviewing the work i have done for the interview purposes, please follow the following steps:
+        1. Open terminal at the project directory and run the following command:
+                ```
+                .\mvnw
+                ```
+         2. Once the build is complete, login into the app using admin as username and password as admin. Open the administration tab and open database.
+         3. Run the following script on the screen if the table does not exist:
+                      ```
+                      create table git_repos
+                      (
+                      	id int not null
+                      		primary key,
+                      	node_id varchar(100) not null,
+                      	owner varchar(50) not null,
+                      	html_url varchar(400) null,
+                      	description varchar(400) not null,
+                      	clone_url varchar(400) not null,
+                      	open_issues int not null,
+                      	stargazers_count int not null,
+                      	watchers_count int not null,
+                      	full_name varchar(100) not null,
+                      	name varchar(50) not null,
+                      	bookmarked tinyint(1) not null
+                      );
+                      ```     
+         4. Press Home button then click refresh to proceed with reviews.     
