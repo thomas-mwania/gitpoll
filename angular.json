@@ -31,6 +31,7 @@
   },
   "defaultProject": "gitpoll",
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "05673ab6-3d4e-4711-bdfd-fc227a04ff9a"
   }
 }

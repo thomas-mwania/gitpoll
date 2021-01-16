@@ -4,6 +4,20 @@
     "pollTittle": "Poll info",
     "subtitle": "This is your landing page",
     "pollsubtitle": "Try polling below",
+    "refresh": "Refresh",
+    "fullName": "Full Name",
+    "id": "ID",
+    "description": "Description",
+    "bookmark": "Bookmark",
+    "bookmarked": "Bookmarked",
+    "unbookmark": "Un-bookmark",
+    "cloneUrl": "Clone Url",
+    "htmlUrl": "Html Url",
+    "stars": "Stars",
+    "watchers": "Watchers",
+    "openIssues": "Open Issues",
+    "repositories": "Repositories",
+
     "logged": {
       "message": "You are logged in as user \"{{username}}\"."
     },

@@ -1,12 +1,14 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { GitpollSharedModule } from 'app/shared/shared.module';
-import { HOME_ROUTE } from './home.route';
-import { HomeComponent } from './home.component';
+import {GitpollSharedModule} from 'app/shared/shared.module';
+import {HOME_ROUTE} from './home.route';
+import {HomeComponent} from './home.component';
+import {PollComponent} from "../poll/poll.component";
 
 @NgModule({
   imports: [GitpollSharedModule, RouterModule.forChild([HOME_ROUTE])],
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, PollComponent],
 })
-export class GitpollHomeModule {}
+export class GitpollHomeModule {
+}

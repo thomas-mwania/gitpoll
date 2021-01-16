@@ -11,7 +11,129 @@
                 <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
                       [translateValues]="{ username: account.login }">You are logged in as user "{{ account.login }}
                     ".</span></div>
-                <p class="lead" jhiTranslate="home.pollsubtitle">This is your landing pages</p>
+                <p class="lead" jhiTranslate="home.pollsubtitle"></p>
+                <div class="card">
+                    <h2>
+                        <span id="user-management-page-heading" jhiTranslate="userManagement.home.title">Users</span>
+
+                        <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./new']">
+                            <fa-icon icon="refresh"></fa-icon>
+                            <span jhiTranslate="home.refresh"></span>
+                        </button>
+                    </h2>
+
+                    <jhi-alert-error></jhi-alert-error>
+
+                    <jhi-alert></jhi-alert>
+
+                    <div class="table-responsive" *ngIf="bookmarks">
+                        <table class="table table-striped" aria-describedby="user-management-page-heading">
+                            <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending"
+                                [callback]="transition.bind(this)">
+                                <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+                                    <fa-icon icon="sort"></fa-icon>
+                                </th>
+                                <th scope="col" jhiSortBy="fullName"><span jhiTranslate="home.fullName">Full Name</span>
+                                    <fa-icon icon="sort"></fa-icon>
+                                </th>
+                                <th scope="col"><span jhiTranslate="home.description">Description</span>
+<!--                                    <fa-icon icon="sort"></fa-icon>-->
+                                </th>
+                                <th scope="col"></th>
+                                <th scope="col" jhiSortBy="isBookmarked"><span
+                                    jhiTranslate="home.bookmark">Bookmark</span>
+                                    <fa-icon icon="sort"></fa-icon>
+                                </th>
+                                <th scope="col"><span jhiTranslate="home.cloneUrl"></span></th>
+                                <th scope="col"><span jhiTranslate="home.htmlUrl"></span>
+<!--                                    <fa-icon icon="sort"></fa-icon>-->
+                                </th>
+                                <th scope="col" jhiSortBy="startGazersCount"><span
+                                    jhiTranslate="home.stars"></span>
+                                    <fa-icon icon="sort"></fa-icon>
+                                </th>
+                                <th scope="col" jhiSortBy="watchersCount"><span
+                                    jhiTranslate="home.watchers"></span>
+                                    <fa-icon icon="sort"></fa-icon>
+                                </th>
+                                <th scope="col" jhiSortBy="openIssues"><span
+                                    jhiTranslate="home.openIssues"></span>
+                                    <fa-icon icon="sort"></fa-icon>
+                                </th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody *ngIf="bookmarks">
+                            <tr *ngFor="let repo of bookmarks; trackBy: repoIdentity">
+                                <td><a [routerLink]="['./', repo.nodeId, 'view']">{{ repo.id }}</a></td>
+                                <td>{{ repo.fullName}}</td>
+                                <td>{{ repo.description }}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" (click)="setActive(repo, true)"
+                                            *ngIf="!repo.isBookmarked"
+                                            jhiTranslate="userManagement.deactivated">Deactivated
+                                    </button>
+                                    <button class="btn btn-success btn-sm" (click)="setActive(repo, false)"
+                                            *ngIf="repo.isBookmarked"
+                                            [disabled]="!currentAccount || currentAccount.login === user.login"
+                                            jhiTranslate="userManagement.activated">Activated
+                                    </button>
+                                </td>
+                                <td>{{ repo.cloneUrl }}</td>
+                                <td>{{ repo.htmlUrl }}</td>
+                                <td>{{ repo.startGazersCount }}</td>
+                                <td>{{ repo.watchersCount }}</td>
+                                <td>{{ repo.openIssues }}</td>
+<!--                                <td>{{ user.createdDate | date:'dd/MM/yy HH:mm' }}</td>-->
+<!--                                <td>{{ user.lastModifiedBy }}</td>-->
+<!--                                <td>{{ user.lastModifiedDate | date:'dd/MM/yy HH:mm' }}</td>-->
+<!--                                <td class="text-right">-->
+<!--                                    <div class="btn-group">-->
+<!--                                        <button type="submit"-->
+<!--                                                [routerLink]="['./', user.login, 'view']"-->
+<!--                                                class="btn btn-info btn-sm">-->
+<!--                                            <fa-icon icon="eye"></fa-icon>-->
+<!--                                            <span class="d-none d-md-inline"-->
+<!--                                                  jhiTranslate="entity.action.view">View</span>-->
+<!--                                        </button>-->
+
+<!--                                        <button type="submit"-->
+<!--                                                [routerLink]="['./', user.login, 'edit']"-->
+<!--                                                queryParamsHandling="merge"-->
+<!--                                                class="btn btn-primary btn-sm">-->
+<!--                                            <fa-icon icon="pencil-alt"></fa-icon>-->
+<!--                                            <span class="d-none d-md-inline"-->
+<!--                                                  jhiTranslate="entity.action.edit">Edit</span>-->
+<!--                                        </button>-->
+
+<!--                                        <button type="button" (click)="deleteUser(user)"-->
+<!--                                                class="btn btn-danger btn-sm"-->
+<!--                                                [disabled]="!currentAccount || currentAccount.login === user.login">-->
+<!--                                            <fa-icon icon="times"></fa-icon>-->
+<!--                                            <span class="d-none d-md-inline"-->
+<!--                                                  jhiTranslate="entity.action.delete">Delete</span>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div *ngIf="bookmarks">
+                        <div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="totalItems"
+                                            [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                                            [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                            (pageChange)="transition()"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div *ngSwitchCase="false">
@@ -30,10 +152,12 @@
                 <ul>
                     <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer"
                            jhiTranslate="home.link.homepage">JHipster homepage</a></li>
-                    <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer"
+                    <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank"
+                           rel="noopener noreferrer"
                            jhiTranslate="home.link.stackoverflow">JHipster on Stack Overflow</a></li>
                     <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank"
-                           rel="noopener noreferrer" jhiTranslate="home.link.bugtracker">JHipster bug tracker</a></li>
+                           rel="noopener noreferrer" jhiTranslate="home.link.bugtracker">JHipster bug tracker</a>
+                    </li>
                     <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank"
                            rel="noopener noreferrer"
                            jhiTranslate="home.link.chat">JHipster public chat room</a></li>
@@ -49,8 +173,10 @@
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
-                <span jhiTranslate="global.messages.info.register.noaccount">You wish to use your own account?</span>&nbsp;
-                <a class="alert-link" routerLink="account/register" jhiTranslate="global.messages.info.register.link">Register
+                    <span
+                        jhiTranslate="global.messages.info.register.noaccount">You wish to use your own account?</span>&nbsp;
+                <a class="alert-link" routerLink="account/register"
+                   jhiTranslate="global.messages.info.register.link">Register
                     a new account</a>
             </div>
         </div>
