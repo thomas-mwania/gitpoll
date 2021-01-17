@@ -39,7 +39,7 @@
             <column name="open_issues" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="star_gazers_count" type="bigint">
+            <column name="stargazers_count" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="watchers_count" type="bigint">
